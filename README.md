@@ -1,38 +1,76 @@
-# Harbor Take Home Project
+# Availability Sharing Application
 
-Welcome to the Harbor take home project. We hope this is a good opportunity for you to showcase your skills.
+This is an Availability Sharing Application that allows users to create availability slots, block specific time slots, and view or update their availabilities.
 
-## The Challenge
+## Requirements
 
-Build us a REST API for calendly. Remember to support
+- **Node.js version**: `16.19.1`
+- **npm**: Installed with Node.js
+- **nvm**: (Node Version Manager) for managing Node.js versions.
 
-- Setting own availability
-- Showing own availability
-- Finding overlap in schedule between 2 users
+## Setting Up Node.js with nvm
 
-It is up to you what else to support.
+If you don't have **Node.js** installed or are using a different version, follow these instructions to set it up with **nvm**.
 
-## Expectations
+1. **Install nvm** (Node Version Manager) by running the following commands:
+    ```bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    ```
 
-We care about
+2. **Reload your shell** (or restart the terminal):
+    ```bash
+    source ~/.bashrc
+    ```
 
-- Have you thought through what a good MVP looks like? Does your API support that?
-- What trade-offs are you making in your design?
-- Working code - we should be able to pull and hit the code locally. Bonus points if deployed somewhere.
-- Any good engineer will make hacks when necessary - what are your hacks and why?
+3. **Install the required Node.js version (16.19.1)**:
+    ```bash
+    nvm install 16.19.1
+    ```
 
-We don't care about
+4. **Use the installed Node.js version**:
+    ```bash
+    nvm use 16.19.1
+    ```
 
-- Authentication
-- UI
-- Perfection - good and working quickly is better
+5. **Verify the Node.js version**:
+    ```bash
+    node -v
+    ```
 
-It is up to you how much time you want to spend on this project. There are likely diminishing returns as the time spent goes up.
+You should see: v16.19.1
 
-## Submission
 
-Please fork this repository and reach out to Prakash when finished.
 
-## Next Steps
+## Installation
 
-After submission, we will conduct a 30 to 60 minute code review in person. We will ask you about your thinking and design choices.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/shan2new/shared-availabiltiy
+    cd shared-availabiltiy
+    ```
+
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+## Running the Application
+
+1. To run the application with **seed data**, use the following command:
+    ```bash
+    npm run dev
+    ```
+
+   This will start the application and seed the database with initial users and availability data.
+
+2. Once the server is running, the application will be accessible at:
+    ```
+    http://localhost:3000
+    ```
+
+## Running Tests
+
+To run the tests, execute the following command:
+```bash
+npm test
+

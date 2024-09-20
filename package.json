@@ -1,0 +1,34 @@
+{
+  "dependencies": {
+    "express": "^4.21.0",
+    "nodemon": "^3.1.6",
+    "save": "^2.9.0",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
+  },
+  "name": "coding-project",
+  "description": "Welcome to the Harbor take home project. We hope this is a good opportunity for you to showcase your skills.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "seed": "node seed.js",
+    "dev": "nodemon index.js",
+    "test": "node seed.js && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shan2new/shared-availabiltiy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shan2new/shared-availabiltiy/issues"
+  },
+  "homepage": "https://github.com/shan2new/shared-availabiltiy#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
