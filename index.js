@@ -145,36 +145,52 @@ app.get("/availability/overlap/:userId1/:userId2", async (req, res, next) => {
     }));
 
     const splitAvailability = (availability, blockedTimes) => {
-        const freeSegments = [];
-        let currentStart = new Date(availability.startTime);
-      
-        blockedTimes.forEach((block) => {
-          const blockStart = new Date(block.blockedStartTime);
-          const blockEnd = new Date(block.blockedEndTime);
-      
-          if (currentStart < blockStart) {
-            // Add free segment before the block
-            freeSegments.push({
-              startTime: currentStart,
-              endTime: blockStart,
-            });
-          }
-      
-          // Move the start to the end of the blocked time
-          currentStart = blockEnd > currentStart ? blockEnd : currentStart;
-        });
-      
-        // Add the remaining free segment after the last block
-        if (currentStart < new Date(availability.endTime)) {
+      const freeSegments = [];
+      let currentStart = new Date(availability.startTime);
+
+      blockedTimes.forEach((block) => {
+        const blockStart = new Date(block.blockedStartTime);
+        const blockEnd = new Date(block.blockedEndTime);
+
+        // Check if block is entirely outside the availability window
+        if (
+          blockEnd <= currentStart ||
+          blockStart >= new Date(availability.endTime)
+        ) {
+          return; // Ignore blocks outside the availability window
+        }
+
+        // Adjust the block start/end times to fit within the availability window
+        const validBlockStart =
+          blockStart > currentStart ? blockStart : currentStart;
+        const validBlockEnd =
+          blockEnd < new Date(availability.endTime)
+            ? blockEnd
+            : new Date(availability.endTime);
+
+        if (currentStart < validBlockStart) {
+          // Add free segment before the block
           freeSegments.push({
             startTime: currentStart,
-            endTime: new Date(availability.endTime),
+            endTime: validBlockStart,
           });
         }
-      
-        return freeSegments;
-      };
-      
+
+        // Move the start to the end of the blocked time
+        currentStart =
+          validBlockEnd > currentStart ? validBlockEnd : currentStart;
+      });
+
+      // Add the remaining free segment after the last block
+      if (currentStart < new Date(availability.endTime)) {
+        freeSegments.push({
+          startTime: currentStart,
+          endTime: new Date(availability.endTime),
+        });
+      }
+
+      return freeSegments;
+    };
 
     // Find overlapping slots
     const overlappingSlots = [];
@@ -321,7 +337,7 @@ app.get("/availability/:userId", async (req, res, next) => {
         "blockedStartTime",
         "blockedEndTime",
         "title",
-        "description"
+        "description",
       ],
       where: {
         [Sequelize.Op.or]: [{ blockerId: userId }, { blockeeId: userId }],
