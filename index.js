@@ -320,6 +320,8 @@ app.get("/availability/:userId", async (req, res, next) => {
         "blockeeAvailabilityId",
         "blockedStartTime",
         "blockedEndTime",
+        "title",
+        "description"
       ],
       where: {
         [Sequelize.Op.or]: [{ blockerId: userId }, { blockeeId: userId }],
@@ -334,6 +336,8 @@ app.get("/availability/:userId", async (req, res, next) => {
       blockedSlotId: slot.id,
       blockedStartTime: new Date(slot.blockedStartTime).toISOString(),
       blockedEndTime: new Date(slot.blockedEndTime).toISOString(),
+      title: slot.title,
+      description: slot.description,
     }));
 
     // Combine availability data with blocked status and blockedSlotId
